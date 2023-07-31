@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <div className="footer">
       <a
-        href="https://github.com/annabananallama/PlusFinalProject"
+        href="https://github.com/annabananallama/weather-react"
         rel="noreferrer"
       >
         <strong>Open source code</strong>
