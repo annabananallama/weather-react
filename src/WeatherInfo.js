@@ -5,12 +5,13 @@ export default function WeatherInfo({
   cityName,
   currentTempCelsius,
   currentTempFahrenheit,
-  windSpeed,
-  description,
-  iconSrc,
-  iconAlt,
   isCelsius,
   onTemperatureToggle,
+}) {
+  const [windSpeed, setWindSpeed] = useState(null); // Add this line
+  const [description, setDescription] = useState(""); // Add this line
+  const [iconSrc, setIconSrc] = useState(""); // Add this line
+  const [iconAlt, setIconAlt] = useState(""); // Add this line
 }) {
   return (
     <div>
