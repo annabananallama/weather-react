@@ -10,10 +10,6 @@ export default function App() {
   const [cityName, setCityName] = useState("");
   const [currentTempCelsius, setCurrentTempCelsius] = useState(null);
   const [currentTempFahrenheit, setCurrentTempFahrenheit] = useState(null);
-  const [windSpeed, setWindSpeed] = useState(null);
-  const [description, setDescription] = useState("");
-  const [iconSrc, setIconSrc] = useState("");
-  const [iconAlt, setIconAlt] = useState("");
   const [isCelsius, setIsCelsius] = useState(true);
 
   const fetchData = (city) => {
@@ -70,7 +66,8 @@ export default function App() {
           currentTempCelsius={
             isCelsius ? currentTempCelsius : currentTempFahrenheit
           }
-          // ... (rest of your props)
+          isCelsius={isCelsius}
+          onTemperatureToggle={() => setIsCelsius(!isCelsius)}
         />
         <div className="forecast"></div>
         <Footer />
