@@ -4,6 +4,11 @@ import TimeDisplay from "./TimeDisplay";
 export default function WeatherInfo({
   cityName,
   currentTempCelsius,
+  currentTempFahrenheit,
+  windSpeed,
+  description,
+  iconSrc,
+  iconAlt,
   isCelsius,
   onTemperatureToggle,
 }) {
