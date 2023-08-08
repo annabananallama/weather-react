@@ -10,6 +10,10 @@ export default function App() {
   const [cityName, setCityName] = useState("");
   const [currentTempCelsius, setCurrentTempCelsius] = useState(null);
   const [currentTempFahrenheit, setCurrentTempFahrenheit] = useState(null);
+  const [windSpeed, setWindSpeed] = useState(null);
+  const [description, setDescription] = useState("");
+  const [iconSrc, setIconSrc] = useState("");
+  const [iconAlt, setIconAlt] = useState("");
   const [isCelsius, setIsCelsius] = useState(true);
 
   const fetchData = (city) => {
