@@ -1,32 +1,44 @@
 import React from "react";
-import icon from "./weather.png";
+import TimeDisplay from "./TimeDisplay";
 
-export default function WeatherInfo() {
+export default function WeatherInfo({
+  cityName,
+  currentTempCelsius,
+  currentTempFahrenheit,
+  windSpeed,
+  description,
+  iconSrc,
+  iconAlt,
+  isCelsius,
+  onTemperatureToggle,
+}) {
   return (
     <div>
-      <button className="currentLocation">Search current location</button>
-      <h4>Monday 14:02</h4>
+      <TimeDisplay />
       <h1>
         <strong>Current Weather For:</strong>
       </h1>
-      <h2>London</h2>
-      <img src={icon} alt="Weather Icon" />
+      <h2>{cityName}</h2>
+      <img src={iconSrc} alt={iconAlt} />
       <h5>
-        <span>°C</span> / <span>°F</span>
+        <span onClick={onTemperatureToggle}>°{isCelsius ? "C" : "F"}</span> /{" "}
+        <span onClick={onTemperatureToggle}>°{isCelsius ? "F" : "C"}</span>
       </h5>
       <div className="row">
         <div className="col-6">
           <div className="current-temp">
             <strong>Temperature:</strong>
             <br />
-            24°C
+            {isCelsius
+              ? `${currentTempCelsius}°C`
+              : `${currentTempFahrenheit}°F`}
           </div>
         </div>
         <div className="col-6">
           <div className="current-wind-humidity">
-            <strong>Wind:</strong> <span>7 m/s</span>
+            <strong>Wind:</strong> <span>{windSpeed} m/s</span>
             <br />
-            <span>few clouds</span>
+            <span>{description}</span>
           </div>
         </div>
       </div>
