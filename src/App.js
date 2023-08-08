@@ -10,6 +10,10 @@ export default function App() {
   const [cityName, setCityName] = useState("");
   const [currentTempCelsius, setCurrentTempCelsius] = useState(null);
   const [currentTempFahrenheit, setCurrentTempFahrenheit] = useState(null);
+  const [windSpeed, setWindSpeed] = useState(null);
+  const [description, setDescription] = useState("");
+  const [iconSrc, setIconSrc] = useState("");
+  const [iconAlt, setIconAlt] = useState("");
   const [isCelsius, setIsCelsius] = useState(true);
 
   const fetchData = (city) => {
@@ -17,11 +21,22 @@ export default function App() {
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
     axios.get(apiUrl).then((response) => {
-      const data = response.data;
-      setCityName(data.name);
-      setCurrentTempCelsius(Math.round(data.main.temp));
-      setCurrentTempFahrenheit(Math.round((data.main.temp * 9) / 5 + 32));
+      showWeatherData(response.data);
     });
+  };
+
+  const showWeatherData = (data) => {
+    setCityName(data.name);
+    setWindSpeed(Math.round(data.wind.speed));
+    setDescription(data.weather[0].description);
+    setCurrentTempCelsius(Math.round(data.main.temp));
+    setCurrentTempFahrenheit(Math.round((data.main.temp * 9) / 5 + 32));
+    setIconSrc(`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`);
+    setIconAlt(data.weather[0].description);
+  };
+
+  const handleTemperatureToggle = () => {
+    setIsCelsius(!isCelsius);
   };
 
   const getCurrentPosition = useCallback(() => {
@@ -33,10 +48,7 @@ export default function App() {
       let currentWeatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
 
       axios.get(currentWeatherApiUrl).then((response) => {
-        const data = response.data;
-        setCityName(data.name);
-        setCurrentTempCelsius(Math.round(data.main.temp));
-        setCurrentTempFahrenheit(Math.round((data.main.temp * 9) / 5 + 32));
+        showWeatherData(response.data);
       });
     });
   }, []);
@@ -52,11 +64,14 @@ export default function App() {
         <LocationButton onClick={getCurrentPosition} />
         <WeatherInfo
           cityName={cityName}
-          currentTempCelsius={
-            isCelsius ? currentTempCelsius : currentTempFahrenheit
-          }
+          currentTempCelsius={currentTempCelsius}
+          currentTempFahrenheit={currentTempFahrenheit}
+          windSpeed={windSpeed}
+          description={description}
+          iconSrc={iconSrc}
+          iconAlt={iconAlt}
           isCelsius={isCelsius}
-          onTemperatureToggle={() => setIsCelsius(!isCelsius)}
+          onTemperatureToggle={handleTemperatureToggle}
         />
         <div className="forecast"></div>
         <Footer />
