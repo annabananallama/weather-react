@@ -42,7 +42,7 @@ export default function App() {
     setIsCelsius(!isCelsius);
   };
 
-  const getCurrentPosition = () => {
+  const getCurrentPosition = useCallback(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
@@ -54,7 +54,7 @@ export default function App() {
         showTemperature(response.data);
       });
     });
-  };
+  }, []);
 
   useEffect(() => {
     getCurrentPosition();
@@ -64,19 +64,13 @@ export default function App() {
     <div className="app">
       <div className="content">
         <SearchBar onSearch={fetchData} />
-        <LocationButton onClick={getCurrentPosition} />{" "}
+        <LocationButton onClick={getCurrentPosition} />
         <WeatherInfo
           cityName={cityName}
           currentTempCelsius={
             isCelsius ? currentTempCelsius : currentTempFahrenheit
           }
-          currentTempFahrenheit={currentTempFahrenheit}
-          windSpeed={windSpeed}
-          description={description}
-          iconSrc={iconSrc}
-          iconAlt={iconAlt}
-          isCelsius={isCelsius}
-          onTemperatureToggle={handleTemperatureToggle}
+          // ... (rest of your props)
         />
         <div className="forecast"></div>
         <Footer />
