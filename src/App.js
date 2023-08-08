@@ -58,7 +58,7 @@ export default function App() {
 
   useEffect(() => {
     getCurrentPosition();
-  }, []);
+  }, [getCurrentPosition]);
 
   return (
     <div className="app">
