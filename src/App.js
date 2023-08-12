@@ -22,8 +22,20 @@ export default function App() {
 
     axios.get(apiUrl).then((response) => {
       showWeatherData(response.data);
+      getForecast(response.data.coord);
     });
   };
+
+  const getForecast = (coordinates) => {
+    let apiKey = "535cacbb3f8a0df0aeb4790235b9541f";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+
+    axios.get(apiUrl).then((response) => {
+      setForecast(response.data.daily);
+    });
+  };
+
+  const [forecast, setForecast] = useState([]);
 
   const showWeatherData = (data) => {
     setCityName(data.name);
@@ -49,6 +61,7 @@ export default function App() {
 
       axios.get(currentWeatherApiUrl).then((response) => {
         showWeatherData(response.data);
+        getForecast(response.data.coord);
       });
     });
   }, []);
@@ -72,6 +85,7 @@ export default function App() {
           iconAlt={iconAlt}
           isCelsius={isCelsius}
           onTemperatureToggle={handleTemperatureToggle}
+          forecast={forecast}
         />
         <div className="forecast"></div>
         <Footer />

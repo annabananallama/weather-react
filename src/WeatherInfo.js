@@ -1,5 +1,6 @@
 import React from "react";
 import TimeDisplay from "./TimeDisplay";
+import Forecast from "./Forecast";
 
 export default function WeatherInfo({
   cityName,
@@ -11,6 +12,7 @@ export default function WeatherInfo({
   iconAlt,
   isCelsius,
   onTemperatureToggle,
+  forecast,
 }) {
   return (
     <div>
@@ -45,6 +47,7 @@ export default function WeatherInfo({
       <h3>
         <strong>Six Day Forecast:</strong>
       </h3>
+      <Forecast forecast={forecast} />
     </div>
   );
 }

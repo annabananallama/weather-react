@@ -125,9 +125,23 @@ img {
   color: white;
 }
 
+.weather-forecast-date {
+  padding-top: 10px;
+}
+
+.weather-forecast-temperatures {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+
 .footer {
   margin-top: 20px;
   font-size: small;
+}
+
+a {
+  text-decoration: none;
 }
 
 a:visited {
